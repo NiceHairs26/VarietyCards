@@ -17,7 +17,7 @@ namespace VarietyCards.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            block.cdMultiplier = 0.25f;
+            block.cdAdd += 0.25f;
 
 
         }
@@ -45,7 +45,7 @@ namespace VarietyCards.Cards
         }
         protected override GameObject GetCardArt()
         {
-            return VarietyCards.CardNameArt;
+            return VarietyCards.AutoBlockArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {

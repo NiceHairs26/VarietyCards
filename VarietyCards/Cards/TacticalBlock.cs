@@ -15,7 +15,7 @@ namespace VarietyCards.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.reloadTime += 0.25f;
+            gun.reloadTimeAdd += 0.25f;
 
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -33,15 +33,15 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Beginning to reload your weapon fills up your block cooldown";
+            return "Wasting all your bullets will fill up your block";
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return VarietyCards.TacticalBlockArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Rare;
         }
         protected override CardInfoStat[] GetStats()
         {

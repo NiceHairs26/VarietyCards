@@ -48,8 +48,8 @@ namespace VarietyCards
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);
 
-        public static GameObject CardNameArt = Bundle.LoadAsset<GameObject>("C_AutoBlock");
-
+        public static GameObject AutoBlockArt = Bundle.LoadAsset<GameObject>("C_AutoBlock");
+        public static GameObject TacticalBlockArt = Bundle.LoadAsset<GameObject>("C_TacticalBlock");
 
     }
 
