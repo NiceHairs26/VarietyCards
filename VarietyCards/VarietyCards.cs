@@ -29,7 +29,7 @@ namespace VarietyCards
         private const string ModId = "com.NiceHairs.VarietyCards";
         private const string ModName = "VarietyCards";
         public const string Version = "1.0.0"; // What version are we on (major.minor.patch)?
-        public const string ModInitials = "VC";
+        public const string ModInitials = "VarietyCards";
         public static VarietyCards instance { get; private set; }
 
         void Awake()
@@ -37,19 +37,22 @@ namespace VarietyCards
             // Use this to call any harmony patch files your mod may have
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
+
         }
         void Start()
         {
             instance = this;
 
             CustomCard.BuildCard<AutoBlock>();
-            CustomCard.BuildCard<TacticalBlock>();
+            //CustomCard.BuildCard<TacticalBlock>();
+            CustomCard.BuildCard<Communist>();
         }
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);
 
         public static GameObject AutoBlockArt = Bundle.LoadAsset<GameObject>("C_AutoBlock");
         public static GameObject TacticalBlockArt = Bundle.LoadAsset<GameObject>("C_TacticalBlock");
+        public static GameObject CommunistArt = Bundle.LoadAsset<GameObject>("C_Communist");
 
     }
 
