@@ -18,7 +18,7 @@ namespace VarietyCards.Cards
         {
             cardInfo.allowMultiple = false;
             block.cdAdd += 0.25f;
-
+           
 
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -61,7 +61,7 @@ namespace VarietyCards.Cards
                     stat = "Block cooldown",
                     amount = "+0.25s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
+        }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()

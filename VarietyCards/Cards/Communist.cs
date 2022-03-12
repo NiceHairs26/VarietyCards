@@ -40,7 +40,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Everyone is partaking on the damage you take";
+            return "Everyone is partaking on the damage and heal you receive.";
         }
         protected override GameObject GetCardArt()
         {
@@ -59,7 +59,7 @@ namespace VarietyCards.Cards
                     positive = true,
                     stat = "Communism",
                     amount = "+10%",
-                    simepleAmount = CardInfoStat.SimpleAmount.aLittleBitOf
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
         }
