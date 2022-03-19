@@ -5,6 +5,7 @@ using System.Linq;
 using UnboundLib;
 using HarmonyLib;
 using UnityEngine;
+using Photon.Pun;
 
 namespace VarietyCards.MonoBehaviours
 {
@@ -14,19 +15,59 @@ namespace VarietyCards.MonoBehaviours
 
         private void Start()
 		{
-		
-            
+
+            this._player = base.GetComponent<Player>();
 
 
         }
 		private void Update()
         {
 
-
+            
         }
 
-  
-       
+        public void Damage(Vector2 damage, Vector2 position, GameObject damagingWeapon, Player damagingPlayer, Boolean lethal)
+        {
+            int players = PlayerManager.instance.players.Count;
+
+            foreach (Player pl in PlayerManager.instance.players)
+            {
+                if (pl != this._player)
+                {
+                    Vector2 sharedDamage = (damage * 0.25f) / (players - 1);
+                    Vector2 playerpos = (pl.data.transform.position);
+                    if (damage == Vector2.zero)
+                    {
+                        return;
+                    }
+                    pl.data.view.RPC("RPCA_SendTakeDamage", RpcTarget.All, new object[]
+                    {
+                    sharedDamage,
+                    playerpos,
+                    lethal,
+                    (damagingPlayer != null) ? damagingPlayer.playerID : -1
+                    });
+                }
+            }
+        }
+
+        public void Heal(float healAmount)
+        {
+            int players = PlayerManager.instance.players.Count;
+
+            foreach(Player pl in PlayerManager.instance.players)
+            {
+                if(pl != this._player)
+                {
+                    float sharedHeal = (healAmount * 0.25f) / (players - 1);
+                    pl.data.health += sharedHeal;
+                    pl.data.health = Mathf.Clamp(pl.data.health, float.NegativeInfinity, pl.data.maxHealth);
+                }
+            }
+        }
+
+
+        private Player _player;
 
     }
 }

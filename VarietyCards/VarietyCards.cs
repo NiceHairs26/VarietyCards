@@ -32,6 +32,7 @@ namespace VarietyCards
         public const string ModInitials = "VarietyCards";
         public static VarietyCards instance { get; private set; }
 
+
         void Awake()
         {
             // Use this to call any harmony patch files your mod may have
@@ -46,6 +47,7 @@ namespace VarietyCards
             CustomCard.BuildCard<AutoBlock>();
             //CustomCard.BuildCard<TacticalBlock>();
             CustomCard.BuildCard<Communist>();
+            CustomCard.BuildCard<Capitalist>();
         }
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);
@@ -53,6 +55,7 @@ namespace VarietyCards
         public static GameObject AutoBlockArt = Bundle.LoadAsset<GameObject>("C_AutoBlock");
         public static GameObject TacticalBlockArt = Bundle.LoadAsset<GameObject>("C_TacticalBlock");
         public static GameObject CommunistArt = Bundle.LoadAsset<GameObject>("C_Communist");
+        public static GameObject CapitalistArt = Bundle.LoadAsset<GameObject>("C_Capitalist");
 
     }
 

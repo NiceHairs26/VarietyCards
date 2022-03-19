@@ -10,23 +10,23 @@ using VarietyCards.MonoBehaviours;
 
 namespace VarietyCards.Cards
 {
-    class AutoBlock : CustomCard
+    class Capitalist : CustomCard
     {
 
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.allowMultiple = false;
-            block.cdAdd += 0.25f;
+
+            cardInfo.allowMultiple = true;
 
             UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
 
-            AutoBlock_Mono abm = player.gameObject.AddComponent<AutoBlock_Mono>();
 
-
+            Capitalist_Mono cap = player.gameObject.AddComponent<Capitalist_Mono>();
+            data.maxHealth *= 0.75f;
 
             UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
@@ -37,19 +37,19 @@ namespace VarietyCards.Cards
          
         protected override string GetTitle()
         {
-            return "Lazy Block";
+            return "Capitalist";
         }
         protected override string GetDescription()
         {
-            return "You block as soon as your cooldown replenishes.\nNever block manually again!";
+            return "You steal everyones heal.";
         }
         protected override GameObject GetCardArt()
         {
-            return VarietyCards.AutoBlockArt;
+            return VarietyCards.CapitalistArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Common;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -57,16 +57,23 @@ namespace VarietyCards.Cards
             {
                 new CardInfoStat()
                 {
-                    positive = false,
-                    stat = "Block cooldown",
-                    amount = "+0.25s",
+                    positive = true,
+                    stat = "Capitalism",
+                    amount = "+10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-        }
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Health",
+                    amount = "-25%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.DefensiveBlue;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
         public override string GetModName()
         {

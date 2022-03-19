@@ -5,52 +5,53 @@ using UnityEngine;
 
 namespace VarietyCards.Patches
 {
+
     [HarmonyPatch(typeof(HealthHandler))]
     public class HealthHandler_Patch
     {
+
         [HarmonyPatch("CallTakeDamage")]
         [HarmonyPrefix]
-        public static bool CallTakeDamage(CharacterData ___data, Vector2 damage, Vector2 position, GameObject damagingWeapon, Player damagingPlayer, Boolean lethal)
+        public static void CallTakeDamage(CharacterData ___data, Vector2 damage, Vector2 position, GameObject damagingWeapon, Player damagingPlayer, Boolean lethal)
         {
             if (___data.GetComponent<Communist_Mono>())
             {
-                int players = PlayerManager.instance.players.Count;
-
-                for (int i = 0; i < players; i++)
+                foreach (Communist_Mono com in ___data.GetComponents<Communist_Mono>())
                 {
-                    if(PlayerManager.instance.players[i] != ___data.player)
-                    {
-                        Vector2 sharedDamage = ((damage * 0.1f) * (___data.GetComponents<Communist_Mono>().Length)) / (players-1);                       
-                        PlayerManager.instance.players[i].data.healthHandler.TakeDamage(sharedDamage,position*0);
-                    }
+                    com.Damage(damage, position, damagingWeapon, damagingPlayer, lethal);
                 }
             }
-            return true; 
         }
+
 
         [HarmonyPatch("Heal")]
         [HarmonyPrefix]
         public static void Heal(CharacterData ___data, float healAmount)
         {
+            int players = PlayerManager.instance.players.Count;
+
 
             if (___data.GetComponent<Communist_Mono>())
-            {
-                int players = PlayerManager.instance.players.Count;
-
-                for (int i = 0; i < players; i++)
+            {   foreach (Communist_Mono com in ___data.GetComponents<Communist_Mono>())
                 {
-                    if (PlayerManager.instance.players[i] != ___data.player)
+                    com.Heal(healAmount);
+                }
+            }
+
+
+            foreach (Player pl in PlayerManager.instance.players)
+            {
+                if (pl.data.GetComponent<Capitalist_Mono>() && pl != ___data.player)
+                {
+                    foreach (Capitalist_Mono cap in pl.data.GetComponents<Capitalist_Mono>())
                     {
-                        float sharedHeal = ((healAmount * 0.1f) * (___data.GetComponents<Communist_Mono>().Length)) / (players - 1);
-                        PlayerManager.instance.players[i].data.healthHandler.Heal(sharedHeal);
+                        cap.Heal(healAmount);
+
                     }
                 }
-             
-
             }
-        
-        }
 
+        }
     }
 }
  
