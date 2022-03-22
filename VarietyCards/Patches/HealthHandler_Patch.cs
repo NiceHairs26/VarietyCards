@@ -34,10 +34,9 @@ namespace VarietyCards.Patches
             if (___data.GetComponent<Communist_Mono>())
             {   foreach (Communist_Mono com in ___data.GetComponents<Communist_Mono>())
                 {
-                    com.Heal(healAmount);
+                    com.Heal(healAmount);                    
                 }
             }
-
 
             foreach (Player pl in PlayerManager.instance.players)
             {
@@ -45,12 +44,13 @@ namespace VarietyCards.Patches
                 {
                     foreach (Capitalist_Mono cap in pl.data.GetComponents<Capitalist_Mono>())
                     {
-                        cap.Heal(healAmount);
-
+                        cap.Heal(healAmount);                      
                     }
                 }
             }
 
+
+          
         }
     }
 }

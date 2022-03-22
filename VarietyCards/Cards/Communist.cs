@@ -19,20 +19,20 @@ namespace VarietyCards.Cards
 
             cardInfo.allowMultiple = true;
 
-            UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
 
 
             Communist_Mono com = player.gameObject.AddComponent<Communist_Mono>();
+            data.maxHealth *= 1.35f;
 
 
-            UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
+
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
+
         }
          
         protected override string GetTitle()
@@ -61,7 +61,14 @@ namespace VarietyCards.Cards
                     stat = "Communism",
                     amount = "+25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                } 
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Health",
+                    amount = "+35%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()

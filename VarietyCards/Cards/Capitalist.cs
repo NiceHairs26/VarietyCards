@@ -19,7 +19,7 @@ namespace VarietyCards.Cards
 
             cardInfo.allowMultiple = true;
 
-            UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been setup.");
+      
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -28,11 +28,11 @@ namespace VarietyCards.Cards
             Capitalist_Mono cap = player.gameObject.AddComponent<Capitalist_Mono>();
             data.maxHealth *= 0.75f;
 
-            UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
+ 
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Debug.Log($"[{VarietyCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
+
         }
          
         protected override string GetTitle()

@@ -29,7 +29,7 @@ namespace VarietyCards
         private const string ModId = "com.NiceHairs.VarietyCards";
         private const string ModName = "VarietyCards";
         public const string Version = "1.0.0"; // What version are we on (major.minor.patch)?
-        public const string ModInitials = "VarietyCards";
+        public const string ModInitials = "VC";
         public static VarietyCards instance { get; private set; }
 
 
@@ -48,6 +48,7 @@ namespace VarietyCards
             //CustomCard.BuildCard<TacticalBlock>();
             CustomCard.BuildCard<Communist>();
             CustomCard.BuildCard<Capitalist>();
+            CustomCard.BuildCard<Pretender>();
         }
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);
@@ -56,6 +57,7 @@ namespace VarietyCards
         public static GameObject TacticalBlockArt = Bundle.LoadAsset<GameObject>("C_TacticalBlock");
         public static GameObject CommunistArt = Bundle.LoadAsset<GameObject>("C_Communist");
         public static GameObject CapitalistArt = Bundle.LoadAsset<GameObject>("C_Capitalist");
+        public static GameObject PretenderArt = Bundle.LoadAsset<GameObject>("C_Pretender");
 
     }
 
