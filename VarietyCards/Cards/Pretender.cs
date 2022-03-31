@@ -12,19 +12,23 @@ namespace VarietyCards.Cards
 {
     class Pretender : CustomCard
     {
-
+        GameObject gameobj;
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            Pretender_Mono ws = player.gameObject.AddComponent<Pretender_Mono>();
+            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
+            this.gameobj.transform.parent = data.transform;
+            characterStats.objectsAddedToPlayer.Add(this.gameobj);
+            this.gameobj.AddComponent<Pretender_Mono>();
+
             data.maxHealth *= 2;
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-
+            UnityEngine.Object.Destroy(this.gameobj);
         }
 
         protected override string GetTitle()
@@ -33,7 +37,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {          
-            return "You pretend to have only half your health, but it is just as before.\nJust think about it.";
+            return "You pretend to have only half of your health left, but your health is just as high as before.\nJust think about it.";
         }
         protected override GameObject GetCardArt()
         {
@@ -60,7 +64,7 @@ namespace VarietyCards.Cards
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DefensiveBlue;
         }
         public override string GetModName()
         {

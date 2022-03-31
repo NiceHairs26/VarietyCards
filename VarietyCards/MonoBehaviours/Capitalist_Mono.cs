@@ -15,12 +15,13 @@ namespace VarietyCards.MonoBehaviours
         private void Start()
         {
 
-            this._player = base.GetComponent<Player>();
+            this._player = base.GetComponentInParent<Player>();
 
 
         }
         private void Update()
         {
+
 
 
         }

@@ -2,6 +2,7 @@
 using HarmonyLib;
 using VarietyCards.MonoBehaviours;
 using UnityEngine;
+using Photon.Pun;
 
 namespace VarietyCards.Patches
 {
@@ -14,14 +15,16 @@ namespace VarietyCards.Patches
         [HarmonyPrefix]
         public static void CallTakeDamage(CharacterData ___data, Vector2 damage, Vector2 position, GameObject damagingWeapon, Player damagingPlayer, Boolean lethal)
         {
-            if (___data.GetComponent<Communist_Mono>())
+            if (___data.GetComponentInChildren<Communist_Mono>())
             {
-                foreach (Communist_Mono com in ___data.GetComponents<Communist_Mono>())
+                foreach (Communist_Mono com in ___data.GetComponentsInChildren<Communist_Mono>())
                 {
                     com.Damage(damage, position, damagingWeapon, damagingPlayer, lethal);
                 }
             }
         }
+
+   
 
 
         [HarmonyPatch("Heal")]
@@ -31,8 +34,8 @@ namespace VarietyCards.Patches
             int players = PlayerManager.instance.players.Count;
 
 
-            if (___data.GetComponent<Communist_Mono>())
-            {   foreach (Communist_Mono com in ___data.GetComponents<Communist_Mono>())
+            if (___data.GetComponentInChildren<Communist_Mono>())
+            {   foreach (Communist_Mono com in ___data.GetComponentsInChildren<Communist_Mono>())
                 {
                     com.Heal(healAmount);                    
                 }
@@ -40,9 +43,9 @@ namespace VarietyCards.Patches
 
             foreach (Player pl in PlayerManager.instance.players)
             {
-                if (pl.data.GetComponent<Capitalist_Mono>() && pl != ___data.player)
+                if (pl.data.GetComponentInChildren<Capitalist_Mono>() && pl != ___data.player)
                 {
-                    foreach (Capitalist_Mono cap in pl.data.GetComponents<Capitalist_Mono>())
+                    foreach (Capitalist_Mono cap in pl.data.GetComponentsInChildren<Capitalist_Mono>())
                     {
                         cap.Heal(healAmount);                      
                     }

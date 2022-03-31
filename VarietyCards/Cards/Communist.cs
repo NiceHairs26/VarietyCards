@@ -12,7 +12,7 @@ namespace VarietyCards.Cards
 {
     class Communist : CustomCard
     {
-
+        GameObject gameobj;
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -24,7 +24,11 @@ namespace VarietyCards.Cards
         {
 
 
-            Communist_Mono com = player.gameObject.AddComponent<Communist_Mono>();
+            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
+            this.gameobj.transform.parent = data.transform;
+            characterStats.objectsAddedToPlayer.Add(this.gameobj);
+            this.gameobj.AddComponent<Communist_Mono>();
+
             data.maxHealth *= 1.35f;
 
 
@@ -32,7 +36,7 @@ namespace VarietyCards.Cards
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-
+            UnityEngine.Object.Destroy(this.gameobj);
         }
          
         protected override string GetTitle()

@@ -10,34 +10,36 @@ using VarietyCards.MonoBehaviours;
 
 namespace VarietyCards.Cards
 {
-    class TacticalBlock : CustomCard
+    class HungryBlock : CustomCard
     {
+        GameObject gameobj;
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.reloadTimeAdd += 0.25f;
-
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            TacticalBlock_Mono abm = player.gameObject.AddComponent<TacticalBlock_Mono>();
+            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
+            this.gameobj.transform.parent = data.transform;
+            characterStats.objectsAddedToPlayer.Add(this.gameobj);
+            this.gameobj.AddComponent<HungryBlock_Mono>();
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            
+            UnityEngine.Object.Destroy(this.gameobj);
         }
 
         protected override string GetTitle()
         {
-            return "Safety Measures";
+            return "Hungry Block";
         }
         protected override string GetDescription()
-        {
-            return "Wasting all your bullets will fill up your block";
+        {          
+            return "Blocking costs 15HP, removes block cooldown.";
         }
         protected override GameObject GetCardArt()
         {
-            return VarietyCards.TacticalBlockArt;
+            return VarietyCards.HungryBlockArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -45,20 +47,15 @@ namespace VarietyCards.Cards
         }
         protected override CardInfoStat[] GetStats()
         {
+            
             return new CardInfoStat[]
             {
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Reload time",
-                    amount = "+0.25s",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
+
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.EvilPurple;
         }
         public override string GetModName()
         {

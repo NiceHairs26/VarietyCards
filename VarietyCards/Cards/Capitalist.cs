@@ -12,7 +12,7 @@ namespace VarietyCards.Cards
 {
     class Capitalist : CustomCard
     {
-
+        GameObject gameobj;
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -25,14 +25,18 @@ namespace VarietyCards.Cards
         {
 
 
-            Capitalist_Mono cap = player.gameObject.AddComponent<Capitalist_Mono>();
+            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
+            this.gameobj.transform.parent = data.transform;
+            characterStats.objectsAddedToPlayer.Add(this.gameobj);
+            this.gameobj.AddComponent<Capitalist_Mono>();
+
             data.maxHealth *= 0.75f;
 
  
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-
+            UnityEngine.Object.Destroy(this.gameobj);
         }
          
         protected override string GetTitle()

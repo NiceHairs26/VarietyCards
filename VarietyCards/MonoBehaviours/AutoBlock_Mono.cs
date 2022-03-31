@@ -11,20 +11,23 @@ namespace VarietyCards.MonoBehaviours
     {
 		private void Start()
 		{
-		
-            this._player = base.GetComponent<Player>();
 
+
+            this._player = base.GetComponentInParent<Player>();
 
         }
 		private void Update()
         {
-
-            this._player.data.block.TryBlock();
+            if(this._player.data.isPlaying && !this._player.data.dead && this._player.data.block.sinceBlock > 0.1f)
+            {
+                this._player.data.block.TryBlock();
+            }
+            
 
 
         }
 
-        private Player _player;
+        public Player _player;
        
 
     }

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Sonigon;
+
 
 
 namespace VarietyCards
@@ -45,10 +47,10 @@ namespace VarietyCards
             instance = this;
 
             CustomCard.BuildCard<AutoBlock>();
-            //CustomCard.BuildCard<TacticalBlock>();
             CustomCard.BuildCard<Communist>();
             CustomCard.BuildCard<Capitalist>();
             CustomCard.BuildCard<Pretender>();
+            CustomCard.BuildCard<HungryBlock>();
         }
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);
@@ -58,6 +60,9 @@ namespace VarietyCards
         public static GameObject CommunistArt = Bundle.LoadAsset<GameObject>("C_Communist");
         public static GameObject CapitalistArt = Bundle.LoadAsset<GameObject>("C_Capitalist");
         public static GameObject PretenderArt = Bundle.LoadAsset<GameObject>("C_Pretender");
+        public static GameObject HungryBlockArt = Bundle.LoadAsset<GameObject>("C_HungryBlock");
+
+        public static AudioClip chompSound = Bundle.LoadAsset<AudioClip>("Chomp");
 
     }
 
