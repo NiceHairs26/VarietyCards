@@ -29,7 +29,7 @@ namespace VarietyCards.Cards
             characterStats.objectsAddedToPlayer.Add(this.gameobj);
             this.gameobj.AddComponent<Communist_Mono>();
 
-            data.maxHealth *= 1.35f;
+            data.maxHealth *= 1.25f;
 
 
 
@@ -70,7 +70,7 @@ namespace VarietyCards.Cards
                 {
                     positive = true,
                     stat = "Health",
-                    amount = "+35%",
+                    amount = "+25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

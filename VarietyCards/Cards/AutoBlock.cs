@@ -17,9 +17,8 @@ namespace VarietyCards.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            block.cdAdd += 0.25f;
+            
 
-        
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -27,6 +26,9 @@ namespace VarietyCards.Cards
             this.gameobj.transform.parent = data.transform;
             characterStats.objectsAddedToPlayer.Add(this.gameobj);      
             this.gameobj.AddComponent<AutoBlock_Mono>();
+
+            block.cdAdd -= 0.25f;
+            data.maxHealth *= 1.25f;
 
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -56,11 +58,18 @@ namespace VarietyCards.Cards
             {
                 new CardInfoStat()
                 {
-                    positive = false,
+                    positive = true,
                     stat = "Block cooldown",
-                    amount = "+0.25s",
+                    amount = "-0.25s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-        }
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Health",
+                    amount = "+25%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()

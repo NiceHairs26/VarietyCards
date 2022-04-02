@@ -16,6 +16,8 @@ namespace VarietyCards.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
+            
+
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -23,6 +25,9 @@ namespace VarietyCards.Cards
             this.gameobj.transform.parent = data.transform;
             characterStats.objectsAddedToPlayer.Add(this.gameobj);
             this.gameobj.AddComponent<HungryBlock_Mono>();
+
+            statModifiers.lifeSteal += 0.5f;
+
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -50,7 +55,13 @@ namespace VarietyCards.Cards
             
             return new CardInfoStat[]
             {
-
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Life steal",
+                    amount = "+50%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()

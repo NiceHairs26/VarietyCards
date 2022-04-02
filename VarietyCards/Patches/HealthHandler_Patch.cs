@@ -15,6 +15,7 @@ namespace VarietyCards.Patches
         [HarmonyPrefix]
         public static void CallTakeDamage(CharacterData ___data, Vector2 damage, Vector2 position, GameObject damagingWeapon, Player damagingPlayer, Boolean lethal)
         {
+
             if (___data.GetComponentInChildren<Communist_Mono>())
             {
                 foreach (Communist_Mono com in ___data.GetComponentsInChildren<Communist_Mono>())

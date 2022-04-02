@@ -49,7 +49,6 @@ namespace VarietyCards
             CustomCard.BuildCard<AutoBlock>();
             CustomCard.BuildCard<Communist>();
             CustomCard.BuildCard<Capitalist>();
-            CustomCard.BuildCard<Pretender>();
             CustomCard.BuildCard<HungryBlock>();
         }
 
@@ -59,7 +58,6 @@ namespace VarietyCards
         public static GameObject TacticalBlockArt = Bundle.LoadAsset<GameObject>("C_TacticalBlock");
         public static GameObject CommunistArt = Bundle.LoadAsset<GameObject>("C_Communist");
         public static GameObject CapitalistArt = Bundle.LoadAsset<GameObject>("C_Capitalist");
-        public static GameObject PretenderArt = Bundle.LoadAsset<GameObject>("C_Pretender");
         public static GameObject HungryBlockArt = Bundle.LoadAsset<GameObject>("C_HungryBlock");
 
         public static AudioClip chompSound = Bundle.LoadAsset<AudioClip>("Chomp");
