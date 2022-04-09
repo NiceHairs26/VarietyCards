@@ -17,11 +17,17 @@ namespace VarietyCards.MonoBehaviours
             this._player = base.GetComponentInParent<Player>();
 
             this.isLow = false;
+            this.punish = 5;
+            this.damage = 15;
         }
 		private void Update()
         {
+            if (this._player.data.block.sinceBlock > this._player.data.block.Cooldown())
+            {
+                this.lastblocks = 0;
+            }
 
-            if(this._player.data.block.IsOnCD() && this._player.data.health >= 15)
+            if (this._player.data.block.IsOnCD() && this._player.data.health >= (this.damage + this.lastblocks * this.punish))
             {
                 
 
@@ -32,33 +38,23 @@ namespace VarietyCards.MonoBehaviours
                 }
                 else
                 {
-                    this._player.data.healthHandler.TakeDamage(Vector2.up * 15, this._player.data.block.blockedAtPos, null, null, false, true);
+                    this._player.data.healthHandler.TakeDamage(Vector2.up * (this.damage + this.lastblocks * this.punish) , this._player.data.block.blockedAtPos, null, null, false, true);
 
-                    SoundContainer soundContainer = ScriptableObject.CreateInstance<SoundContainer>();
-                    soundContainer.audioClip[0] = VarietyCards.chompSound;
-                    soundContainer.setting.volumeIntensityEnable = true;
-                    chomp = ScriptableObject.CreateInstance<SoundEvent>();
-                    chomp.soundContainerArray[0] = soundContainer;
-
-                    if(chomp)
-                    {
-                        SoundManager.Instance.Play(this.chomp, base.transform, new SoundParameterBase[]
-                        {
-                            new SoundParameterIntensity(Optionshandler.vol_Master * Optionshandler.vol_Sfx * 1.5f),
-                            new SoundParameterPitchRatio((float)new System.Random().NextDouble()+0.75f),
-                            new SoundParameterDelay(0.1f)
-                        });
+                    foreach (Player pl in PlayerManager.instance.players)
+                    { 
+                        pl.GetComponent<SoundManager_Mono>().PlaySound(VarietyCards.chompSound,1.25f,0.75f,0.05f);
                     }
 
 
                     this._player.data.block.ResetCD(false);
                     this.isLow = false;
+                    this.lastblocks++;
                 }
 
 
 
             }
-            else if(this._player.data.health < 15)
+            else if(this._player.data.health < (this.damage + this.lastblocks * this.punish))
             {
 
                 this._player.data.block.counter = 0;
@@ -69,12 +65,15 @@ namespace VarietyCards.MonoBehaviours
             {
                 this.isLow = false;
             }
+            
         }
    
         private Player _player;
-        private SoundEvent chomp;
 
+        private int damage;
+        private int punish;
         private bool isLow;
+        private int lastblocks;
 
     }
 }

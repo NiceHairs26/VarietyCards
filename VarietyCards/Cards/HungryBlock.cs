@@ -26,6 +26,11 @@ namespace VarietyCards.Cards
             characterStats.objectsAddedToPlayer.Add(this.gameobj);
             this.gameobj.AddComponent<HungryBlock_Mono>();
 
+            foreach (Player pl in PlayerManager.instance.players)
+            {
+                pl.gameObject.GetOrAddComponent<SoundManager_Mono>();
+            }
+
             statModifiers.lifeSteal += 0.5f;
 
         }
@@ -40,7 +45,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {          
-            return "Blocking costs 15HP, removes block cooldown.";
+            return "Blocking costs 15HP, removes block cooldown.\nBe wary of deminishing returns.";
         }
         protected override GameObject GetCardArt()
         {
