@@ -34,14 +34,6 @@ namespace VarietyCards.Patches
         {
             int players = PlayerManager.instance.players.Count;
 
-
-            if (___data.GetComponentInChildren<Communist_Mono>())
-            {   foreach (Communist_Mono com in ___data.GetComponentsInChildren<Communist_Mono>())
-                {
-                    com.Heal(healAmount);                    
-                }
-            }
-
             foreach (Player pl in PlayerManager.instance.players)
             {
                 if (pl.data.GetComponentInChildren<Capitalist_Mono>() && pl != ___data.player)

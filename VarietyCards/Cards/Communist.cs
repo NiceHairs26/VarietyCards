@@ -29,7 +29,7 @@ namespace VarietyCards.Cards
             characterStats.objectsAddedToPlayer.Add(this.gameobj);
             this.gameobj.AddComponent<Communist_Mono>();
 
-            data.maxHealth *= 1.25f;
+            data.maxHealth *= 0.75f;
 
 
 
@@ -45,7 +45,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Everyone is partaking on the damage and heal you receive.";
+            return "Everyone is partaking on the damage you take.";
         }
         protected override GameObject GetCardArt()
         {
@@ -68,9 +68,9 @@ namespace VarietyCards.Cards
                 },
                 new CardInfoStat()
                 {
-                    positive = true,
+                    positive = false,
                     stat = "Health",
-                    amount = "+25%",
+                    amount = "-25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnboundLib;
-using HarmonyLib;
+using Sonigon;
 using UnityEngine;
 
 namespace VarietyCards.MonoBehaviours
@@ -21,22 +21,18 @@ namespace VarietyCards.MonoBehaviours
         }
         private void Update()
         {
-
-
-
         }
 
         public void Heal(float healAmount)
         {
-
+            SoundManager.Instance.Play(this._player.data.healthHandler.soundHeal, base.transform);
             this._player.data.health += healAmount * 0.1f;
             this._player.data.health = Mathf.Clamp(this._player.data.health, float.NegativeInfinity, this._player.data.maxHealth);
-
+            this._player.data.healthHandler.healPart.Emit((int)Mathf.Clamp(healAmount * 0.2f, 1f, 10f));
         }
 
 
         private Player _player;
-
 
 
 

@@ -42,7 +42,7 @@ namespace VarietyCards.MonoBehaviours
 
                     foreach (Player pl in PlayerManager.instance.players)
                     { 
-                        pl.GetComponent<SoundManager_Mono>().PlaySound(VarietyCards.chompSound,1.25f,0.75f,0.05f);
+                        pl.GetComponent<SoundManager_Mono>().PlaySound(VarietyCards.chompSound,1.5f,0.75f,0.05f);
                     }
 
 
