@@ -32,6 +32,7 @@ namespace VarietyCards.Cards
             }
 
             statModifiers.lifeSteal += 0.5f;
+            block.cdMultiplier *= 0.5f;
 
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -45,7 +46,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {          
-            return "Blocking costs 15HP, removes block cooldown.\nBe wary of deminishing returns.";
+            return "Blocking costs 15HP, removes block cooldown. Be wary of deminishing returns, block cooldown still applies here.";
         }
         protected override GameObject GetCardArt()
         {
@@ -66,7 +67,7 @@ namespace VarietyCards.Cards
                     stat = "Life steal",
                     amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
+                }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()

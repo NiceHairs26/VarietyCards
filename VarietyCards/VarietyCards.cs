@@ -61,6 +61,7 @@ namespace VarietyCards
         public static GameObject HungryBlockArt = Bundle.LoadAsset<GameObject>("C_HungryBlock");
 
         public static AudioClip chompSound = Bundle.LoadAsset<AudioClip>("Chomp");
+        public static AudioClip burpSound = Bundle.LoadAsset<AudioClip>("burp");
 
     }
 

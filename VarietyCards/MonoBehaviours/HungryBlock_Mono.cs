@@ -22,12 +22,17 @@ namespace VarietyCards.MonoBehaviours
         }
 		private void Update()
         {
-            if (this._player.data.block.sinceBlock > this._player.data.block.Cooldown())
+            if (this._player.data.block.sinceBlock > this._player.data.block.Cooldown() && this.lastblocks > 0)
             {
                 this.lastblocks = 0;
+                foreach (Player pl in PlayerManager.instance.players)
+                {
+                    pl.GetComponent<SoundManager_Mono>().PlaySound(VarietyCards.burpSound, 1.5f);
+                }
+
             }
 
-            if (this._player.data.block.IsOnCD() && this._player.data.health >= (this.damage + this.lastblocks * this.punish))
+            if (this._player.data.block.IsOnCD() && this._player.data.health >= (this.damage + this.lastblocks))
             {
                 
 
@@ -73,7 +78,7 @@ namespace VarietyCards.MonoBehaviours
         private int damage;
         private int punish;
         private bool isLow;
-        private int lastblocks;
+        private int lastblocks; 
 
     }
 }
