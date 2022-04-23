@@ -46,10 +46,11 @@ namespace VarietyCards
         {
             instance = this;
 
-            CustomCard.BuildCard<AutoBlock>();
+            CustomCard.BuildCard<LazyBlock>();
             CustomCard.BuildCard<Communist>();
             CustomCard.BuildCard<Capitalist>();
             CustomCard.BuildCard<HungryBlock>();
+            CustomCard.BuildCard<Cards.Cursor>();
         }
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);

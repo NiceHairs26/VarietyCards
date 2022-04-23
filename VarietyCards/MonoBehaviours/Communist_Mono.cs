@@ -23,7 +23,6 @@ namespace VarietyCards.MonoBehaviours
 		private void Update()
         {
 
-            
         }
 
         public void Damage(Vector2 damage, Vector2 position, GameObject damagingWeapon, Player damagingPlayer, Boolean lethal)

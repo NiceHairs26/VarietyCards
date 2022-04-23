@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace VarietyCards.MonoBehaviours
 {
-    internal class AutoBlock_Mono : MonoBehaviour
+    internal class LazyBlock_Mono : MonoBehaviour
     {
 		private void Start()
 		{

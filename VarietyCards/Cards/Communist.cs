@@ -45,7 +45,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {
-            return "Everyone is partaking on the damage you take.";
+            return "Everyone is partaking on the damage you take. Spreading the damage across all players.";
         }
         protected override GameObject GetCardArt()
         {

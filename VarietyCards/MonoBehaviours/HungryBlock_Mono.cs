@@ -13,14 +13,14 @@ namespace VarietyCards.MonoBehaviours
     {
 
         private void Start()
-		{
+        {
             this._player = base.GetComponentInParent<Player>();
 
             this.isLow = false;
             this.punish = 5;
             this.damage = 15;
         }
-		private void Update()
+        private void Update()
         {
             if (this._player.data.block.sinceBlock > this._player.data.block.Cooldown() && this.lastblocks > 0)
             {
@@ -34,7 +34,7 @@ namespace VarietyCards.MonoBehaviours
 
             if (this._player.data.block.IsOnCD() && this._player.data.health >= (this.damage + this.lastblocks))
             {
-                
+
 
                 if (this.isLow == true)
                 {
@@ -43,11 +43,11 @@ namespace VarietyCards.MonoBehaviours
                 }
                 else
                 {
-                    this._player.data.healthHandler.TakeDamage(Vector2.up * (this.damage + this.lastblocks * this.punish) , this._player.data.block.blockedAtPos, null, null, false, true);
+                    this._player.data.healthHandler.TakeDamage(Vector2.up * (this.damage + this.lastblocks * this.punish), this._player.data.block.blockedAtPos, null, null, false, true);
 
                     foreach (Player pl in PlayerManager.instance.players)
-                    { 
-                        pl.GetComponent<SoundManager_Mono>().PlaySound(VarietyCards.chompSound,1.5f,0.75f,0.05f);
+                    {
+                        pl.GetComponent<SoundManager_Mono>().PlaySound(VarietyCards.chompSound, 1.5f, 0.75f, 0.05f);
                     }
 
 
@@ -59,26 +59,26 @@ namespace VarietyCards.MonoBehaviours
 
 
             }
-            else if(this._player.data.health < (this.damage + this.lastblocks * this.punish))
+            else if (this._player.data.health < (this.damage + this.lastblocks * this.punish))
             {
 
                 this._player.data.block.counter = 0;
                 this.isLow = true;
 
             }
-            else if(!this._player.data.block.IsOnCD())
+            else if (!this._player.data.block.IsOnCD())
             {
                 this.isLow = false;
             }
-            
+
         }
-   
+
         private Player _player;
 
         private int damage;
         private int punish;
         private bool isLow;
-        private int lastblocks; 
+        private int lastblocks;
 
     }
 }
