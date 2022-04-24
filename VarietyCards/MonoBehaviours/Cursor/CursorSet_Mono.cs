@@ -7,9 +7,9 @@ using UnityEngine;
 using Sonigon;
 using Sonigon.Internal;
 
-namespace VarietyCards.MonoBehaviours
+namespace VarietyCards.MonoBehaviours.Cursor
 {
-    internal class Cursor_Mono : MonoBehaviour
+    internal class CursorSet_Mono : MonoBehaviour
     {
 
         private void Start()
@@ -27,9 +27,9 @@ namespace VarietyCards.MonoBehaviours
 		private void Update()
         {
             this.timer = 20 * Time.deltaTime;
-            this.center.transform.RotateAround(this._player.gameObject.transform.position,Vector3.forward,timer);
+            //this.center.transform.RotateAround(this._player.gameObject.transform.position,Vector3.forward,timer);
         }
-        public void Reset(int plus)
+        public void Add(int plus)
         {
             Quaternion centerRotation = this.center.transform.rotation;
             this.center.transform.rotation.Set(0, 0, 0, 0);
@@ -47,22 +47,35 @@ namespace VarietyCards.MonoBehaviours
 
             for (int i = 0; i < this.amount; i++)
             {
+                float distance;
+                int amount;
+                if (i<=10)
+                {
+                    distance = 1.5f;
+                    amount = 10;
+                }
+                else if (i <= 25)
+                {
+                    distance = 2f;
+                    amount = 15;
+                } 
+                else
+                {
+                    distance = 2.5f;
+                    amount = 20;
+                }
 
-                float radians =i * 2 * Mathf.PI / 10;
+                float radians =i * 2 * Mathf.PI / amount;
 
                 float vertical = Mathf.Sin(radians);
                 float horizontal = Mathf.Cos(radians);
 
                 Vector3 spawnDir = new Vector3(horizontal, vertical, 0);
 
-                Vector3 spawnPos = this.center.transform.position + spawnDir * 1.5f;
+                Vector3 spawnPos = this.center.transform.position + spawnDir * distance;
 
-                GameObject cursor;
-
-                cursor = ObjectManager.CreateObject("Cursor", Color.white);
+                GameObject cursor = Instantiate(VarietyCards.cursor, spawnPos, Quaternion.Euler(0, 180, 0)); ;
                 cursor.transform.SetParent(this.center.transform);
-                cursor.transform.position = spawnPos;
-
 
                 Vector3 norTar = (this.center.transform.position - cursor.transform.position).normalized;
                 float angle = Mathf.Atan2(norTar.x, norTar.y) * Mathf.Rad2Deg;
@@ -70,8 +83,14 @@ namespace VarietyCards.MonoBehaviours
                 rotation.eulerAngles = new Vector3(0, 180, angle);
                 cursor.transform.rotation = rotation;
 
-                this.cursors.Add(cursor);
                 this.center.transform.rotation = centerRotation;
+
+                this.cursors.Add(cursor);
+                Cursor_Mono cum = cursor.AddComponent<Cursor_Mono>();
+                cum.parent = cursor;
+                cum.center = this.center;
+                cum.spawnDir = spawnDir;
+                cum.distance = distance;
             }
         }
 

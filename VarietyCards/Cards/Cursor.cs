@@ -21,7 +21,7 @@ namespace VarietyCards.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
 
-            player.gameObject.GetOrAddComponent<Cursor_Mono>().Reset(1);
+            player.gameObject.GetOrAddComponent<CursorSet_Mono>().Add(1);
 
 
         }

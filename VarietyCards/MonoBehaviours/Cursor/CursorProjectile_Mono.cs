@@ -7,9 +7,9 @@ using UnityEngine;
 using Sonigon;
 using Sonigon.Internal;
 
-namespace VarietyCards.MonoBehaviours
+namespace VarietyCards.MonoBehaviours.Cursor
 {
-    internal class SetCursor_Mono : RayHitEffect
+    internal class CursorProjectile_Mono : RayHitEffect
     {
 
 		private void Start()

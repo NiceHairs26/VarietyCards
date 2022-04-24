@@ -30,7 +30,7 @@ namespace VarietyCards
     {
         private const string ModId = "com.NiceHairs.VarietyCards";
         private const string ModName = "VarietyCards";
-        public const string Version = "1.0.0"; // What version are we on (major.minor.patch)?
+        public const string Version = "1.0.0";
         public const string ModInitials = "VC";
         public static VarietyCards instance { get; private set; }
 
@@ -63,6 +63,8 @@ namespace VarietyCards
 
         public static AudioClip chompSound = Bundle.LoadAsset<AudioClip>("Chomp");
         public static AudioClip burpSound = Bundle.LoadAsset<AudioClip>("burp");
+
+        public static GameObject cursor = Bundle.LoadAsset<GameObject>("cursor");
 
     }
 
