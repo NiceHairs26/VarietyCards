@@ -43,7 +43,7 @@ namespace VarietyCards.MonoBehaviours
                 }
                 else
                 {
-                    this._player.data.healthHandler.TakeDamage(Vector2.up * (this.damage + this.lastblocks * this.punish), this._player.data.block.blockedAtPos, null, null, false, true);
+                    this._player.data.healthHandler.TakeDamage(Vector2.up * (this.damage + this.lastblocks * this.punish), this._player.data.block.blockedAtPos, null, this._player, false, true);
 
                     foreach (Player pl in PlayerManager.instance.players)
                     {

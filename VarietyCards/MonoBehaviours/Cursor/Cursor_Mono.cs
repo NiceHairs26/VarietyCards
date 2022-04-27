@@ -24,51 +24,53 @@ namespace VarietyCards.MonoBehaviours.Cursor
 			if(this.clicking)
             {
 
-				Vector3 targetPos = this.center.transform.position + this.spawnDir * (this.distance-0.5f);
-
-				parent.transform.position = Vector3.MoveTowards(parent.transform.position, targetPos, 10 * Time.deltaTime);
-				if(parent.transform.position==target)
+				this.parent.transform.position = Vector3.MoveTowards(this.parent.transform.position, this.target.transform.position, 5 * Time.deltaTime);
+				if(this.parent.transform.position== this.target.transform.position)
 				{ 
 					this.clicking = false;
 					this.returning = true;
+					this.owner.data.healthHandler.Heal(5);
 				}
 			}
 			else if(this.returning)
             {
-				Vector3 targetPos = this.center.transform.position + this.spawnDir * this.distance;
 
-				parent.transform.position = Vector3.MoveTowards(parent.transform.position, targetPos, 10 * Time.deltaTime);
-				if (parent.transform.position == oldPos)
+				this.parent.transform.position = Vector3.MoveTowards(this.parent.transform.position, this.holding.transform.position, 5 * Time.deltaTime);
+				if (this.parent.transform.position == this.holding.transform.position)
 				{
 					this.clicking = false;
 					this.returning = false;
 				}
 			}
-
+            else
+            {
+				this.parent.transform.position = this.holding.transform.position;
+				this.parent.transform.rotation = this.holding.transform.rotation;
+			}
 			
 
-			if (this.seconds >= 3)
+			if (this.seconds >= 10)
             {
 				this.Click();
 			}
 		}
-		private void Click()
+		public void Click()
         {
 			this.timee = 0;
-			this.oldPos = parent.transform.position;
 			this.clicking = true;
 
 		}
+
 		private float timee;
-		private int seconds;
+		public int seconds;
 		private bool clicking;
 		private bool returning;
-		private Vector3 target;
-		private Vector3 oldPos;
 		public GameObject parent;
-		public GameObject center;
+		public GameObject holding;
+		public GameObject target;
 
-		public Vector3 spawnDir;
-		public float distance;
+		public Player owner;
+	
+
 	}
 }

@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
-using VarietyCards.MonoBehaviours;
+using VarietyCards.MonoBehaviours.Cursor;
 
 namespace VarietyCards.Cards
 {
     class Cursor : CustomCard
     {
+        GameObject gameobj;
+        CursorSet_Mono cusm;
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = true;
@@ -21,13 +23,19 @@ namespace VarietyCards.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
 
-            player.gameObject.GetOrAddComponent<CursorSet_Mono>().Add(1);
+            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
+            this.gameobj.transform.parent = data.transform;
+            characterStats.objectsAddedToPlayer.Add(this.gameobj);
+            this.cusm = this.gameobj.GetOrAddComponent<CursorSet_Mono>();
+
+            this.cusm.monoHold =this.gameobj;
+            this.cusm.Add(1);
 
 
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            
+            UnityEngine.Object.Destroy(this.gameobj);
         }
 
         protected override string GetTitle()
@@ -36,7 +44,7 @@ namespace VarietyCards.Cards
         }
         protected override string GetDescription()
         {          
-            return "Adds an cursor to the player you hit, that deals 10% of your gun damage and 10 additional damage, every 10 seconds.";
+            return "Adds an cursor to the player that'll heal you by 5 hp every 10 seconds.";
         }
         protected override GameObject GetCardArt()
         {

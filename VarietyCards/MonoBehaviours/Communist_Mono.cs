@@ -33,19 +33,14 @@ namespace VarietyCards.MonoBehaviours
             {
                 if (pl != this._player)
                 {
+
                     Vector2 sharedDamage = (damage * 0.25f) / (players - 1);
                     Vector2 playerpos = (pl.data.transform.position);
-                    if (damage == Vector2.zero)
+                    if (sharedDamage == Vector2.zero)
                     {
                         return;
                     }
-                    pl.data.view.RPC("RPCA_SendTakeDamage", RpcTarget.All, new object[]
-                    {
-                    sharedDamage,
-                    playerpos,
-                    lethal,
-                    (damagingPlayer != null) ? damagingPlayer.playerID : -1
-                    });
+                    pl.data.healthHandler.CallTakeDamage(sharedDamage, playerpos, null, pl, false);
                 }
             }
         }
