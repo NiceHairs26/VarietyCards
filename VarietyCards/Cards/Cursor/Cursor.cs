@@ -6,55 +6,49 @@ using System.Threading.Tasks;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
-using VarietyCards.MonoBehaviours;
+using VarietyCards.MonoBehaviours.Cursor;
 
-namespace VarietyCards.Cards
+namespace VarietyCards.Cards.Cursor
 {
-    class HungryBlock : CustomCard
+    class Cursor : CustomCard
     {
-        GameObject gameobj;
+        CursorSet_Mono cusm;
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.allowMultiple = false;
+            cardInfo.allowMultiple = true;
             
 
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
-            this.gameobj.transform.parent = data.transform;
-            characterStats.objectsAddedToPlayer.Add(this.gameobj);
-            this.gameobj.AddComponent<HungryBlock_Mono>();
 
-            foreach (Player pl in PlayerManager.instance.players)
-            {
-                pl.gameObject.GetOrAddComponent<SoundManager_Mono>();
-            }
+            this.cusm = player.gameObject.GetOrAddComponent<CursorSet_Mono>();
 
-            statModifiers.lifeSteal += 0.5f;
-            block.cdMultiplier *= 0.5f;
+            this.cusm.Setup(player);
+            this.cusm.Add(1);
+
 
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Object.Destroy(this.gameobj);
+            this.cusm.Add(-1);
         }
-
+        internal static CardInfo Card = null;
         protected override string GetTitle()
         {
-            return "Hungry Block";
+            return "Cursor";
         }
         protected override string GetDescription()
         {          
-            return "Blocking costs 15HP, removes block cooldown. Be wary of deminishing returns, the block cooldown still applies here.";
+            return "Adds an cursor.";
         }
         protected override GameObject GetCardArt()
         {
-            return VarietyCards.HungryBlockArt;
+            return null;
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Common;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -64,15 +58,15 @@ namespace VarietyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Life steal",
-                    amount = "+50%",
+                    stat = "Cursor",
+                    amount = "+1",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.EvilPurple;
+            return CardThemeColor.CardThemeColorType.TechWhite;
         }
         public override string GetModName()
         {

@@ -8,11 +8,10 @@ using UnboundLib.Cards;
 using UnityEngine;
 using VarietyCards.MonoBehaviours.Cursor;
 
-namespace VarietyCards.Cards
+namespace VarietyCards.Cards.Cursor
 {
-    class Cursor : CustomCard
+    class Clicker : CustomCard
     {
-        GameObject gameobj;
         CursorSet_Mono cusm;
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -23,28 +22,25 @@ namespace VarietyCards.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
 
-            this.gameobj = new GameObject(this.GetTitle() + "[MonoHolder]");
-            this.gameobj.transform.parent = data.transform;
-            characterStats.objectsAddedToPlayer.Add(this.gameobj);
-            this.cusm = this.gameobj.GetOrAddComponent<CursorSet_Mono>();
+            this.cusm = player.gameObject.GetOrAddComponent<CursorSet_Mono>();
 
-            this.cusm.monoHold =this.gameobj;
+            this.cusm.Setup(player);
             this.cusm.Add(1);
 
 
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            UnityEngine.Object.Destroy(this.gameobj);
+            this.cusm.Add(-1);
         }
-
+        internal static CardInfo Card = null;
         protected override string GetTitle()
         {
-            return "Cursor";
+            return "Clicker";
         }
         protected override string GetDescription()
         {          
-            return "Adds an cursor to the player that'll heal you by 5 hp every 10 seconds.";
+            return "Cursors will click you, so you don't die.";
         }
         protected override GameObject GetCardArt()
         {
@@ -64,6 +60,13 @@ namespace VarietyCards.Cards
                     positive = true,
                     stat = "Cursor",
                     amount = "+1",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Heal per click",
+                    amount = "+5",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

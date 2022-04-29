@@ -50,7 +50,7 @@ namespace VarietyCards
             CustomCard.BuildCard<Communist>();
             CustomCard.BuildCard<Capitalist>();
             CustomCard.BuildCard<HungryBlock>();
-            CustomCard.BuildCard<Cards.Cursor>();
+            CustomCard.BuildCard<Cards.Cursor.Cursor>();
         }
 
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("varietycardsassetbundel", typeof(VarietyCards).Assembly);
